@@ -35,6 +35,9 @@ def main():
         lbl_size.config(text=f"{img_width}x{img_height}")
         canvas.place(x=100,y=100,anchor="center")
         canvas.pack()
+        switch_data=[btn_rsz,btn_water]
+        print (switch_data)
+        switch(*switch_data)
 
     def watermark():
 
@@ -58,7 +61,21 @@ def main():
 
 
     def resize():
-        pass
+        # Load the image
+        image=Image.open(img_data["path"])
+        # Resize the image in the given (width, height)
+        img=image.resize((450, 350))
+        # reload the image in seperate frame
+        image=ImageTk.PhotoImage(img)
+        img.show()
+        
+    def switch(*args,**kwargs):
+        print ("turning on Buttons after upload is finished")
+        for item in args:
+            item.config(state="active")
+
+            
+
 
   
 
@@ -70,9 +87,9 @@ def main():
     frm.pack(padx=5,pady=5,fill="both",expand=True,side="left")
     frm2 = Frame(master=root,highlightbackground="blue",bg="white",height=20,width=500,pady=20)
     frm2.pack(padx=5,pady=5,fill="both",expand=True,side="right")
-    btn_rsz=Button(frm,text="Resize",command=resize,highlightbackground="grey",width=8)
+    btn_rsz=Button(frm,text="Resize",command=resize,highlightbackground="grey",width=8,state="disabled")
     btn=Button(frm,text="Upload",command=upload,highlightbackground="grey",width=8)
-    btn_water=Button(frm,text="WaterMark",command=watermark,highlightbackground="grey",width=8)
+    btn_water=Button(frm,text="WaterMark",command=watermark,highlightbackground="grey",width=8,state="disabled")
     lbl_size=Label(frm,text="Size: ",highlightbackground="grey",bg="Grey",fg="black",font=("Arial",20))
     lbl_size.place(relx=0.0 ,rely=0.99,anchor="sw",)
     btn.place(x=25,y=40)
